@@ -96,9 +96,9 @@ char scanKeypad(void){
     LAT_0 = 1;LAT_1 = 1;LAT_2 = 1;LAT_3 = 0;
     delayUs(5);
     //LAT_0 = 0;LAT_1 = 0;LAT_2 = 0;LAT_3 = 1;
-    if(PORT_0 == 0){key = 0x2a;found++;}
+    if(PORT_0 == 0){key = 0x2a;found++;}    //*
     if(PORT_1 == 0){key = '0';found++;}
-    if(PORT_2 == 0){key = 0x23;found++;}
+    if(PORT_2 == 0){key = 0x23;found++;}    //#
     
     tempo = 1;
     if(found>1)
