@@ -77,7 +77,10 @@ int main(void)
                 {
                     clearLCD();
                     moveCursorLCD(0,0);
-                    printStringLCD("Bad");
+                    if(setMode==0)
+                        printStringLCD("Bad");
+                    else
+                        printStringLCD("Invalid");
                     for(loop=0;loop<=20;loop++)
                         delayMs(200);
                     currX = 0;
@@ -141,6 +144,7 @@ int main(void)
                 {
                     
                     //check if valid password
+                    /*
                     clearLCD();
                     moveCursorLCD(0,0);
                     printStringLCD("Bacon");
@@ -150,6 +154,8 @@ int main(void)
                     setMode = 0;
                     state = reset;
                     break;
+                     */
+                    
                 }
                 else if((currX==3)&(setMode==1))
                 {
