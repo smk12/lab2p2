@@ -28,7 +28,7 @@ typedef enum stateTypeEnum{
 
 volatile stateType state;
 volatile int inNum = 0;          //counts # of current inputs
-volatile char passIn[4][10];
+volatile char passIn[10][4];
 volatile int passX;
 volatile int passY;
 volatile char currIn[4];
@@ -59,6 +59,7 @@ int main(void)
                 clearLCD();
                 printStringLCD("Enter");
                 moveCursorLCD(1,0);
+                currX = 0;
                 inNum = 0;
                 setMode = 0;
                 state = wait;
@@ -126,7 +127,7 @@ int main(void)
                 }
                 else if(setMode==1)
                 {
-                    passIn[passX][passY] = keyScan;
+                    passIn[passY][currX] = keyScan;     //changed
                     printCharLCD(keyScan);
                 }
                 else
@@ -142,7 +143,37 @@ int main(void)
                 }
                 if((currX==3)&(setMode==0))
                 {
-                    
+                    for(temp=0;temp<passY;temp++)
+                    {
+                        temp3 = 0;
+                        for(temp2=0;temp2<=3;temp2++)
+                        {
+                            if(currIn[temp2]==passIn[temp][temp2])
+                                temp3++;
+                        }
+                        if(temp3==4)
+                        {
+                            clearLCD();
+                            moveCursorLCD(0,0);
+                            printStringLCD("Good");
+                            for(loop=0;loop<=20;loop++)
+                                delayMs(200);
+                            state = reset;
+                            break;
+                        }
+                    }
+                    if(state==reset)
+                        break;
+                    else
+                    {
+                        clearLCD();
+                        moveCursorLCD(0,0);
+                        printStringLCD("Bad");
+                        for(loop=0;loop<=20;loop++)
+                            delayMs(200);
+                        state = reset;
+                        break;
+                    }
                     //check if valid password
                     /*
                     clearLCD();
@@ -167,8 +198,8 @@ int main(void)
                     currX = 0;
                     setMode = 0;
                     state = reset;
+                    passY++;          //changed
                     passX = 0;
-                    passY++;
                     break;
                 }
                 currX++;
